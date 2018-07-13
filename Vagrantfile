@@ -27,8 +27,8 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define :dockerhub do |dockerhub|
-    dockerhub.vm.provider :google do |google, override|
+  config.vm.define :puppetmaster do |puppetmaster|
+    puppetmaster.vm.provider :google do |google, override|
       google.google_project_id = $GOOGLE_PROJECT_ID
       google.google_client_email = $GOOGLE_CLIENT_EMAIL
       google.google_json_key_location = $GOOGLE_JSON_KEY_LOCATION
@@ -37,12 +37,12 @@ Vagrant.configure("2") do |config|
       override.ssh.username = $LOCAL_USER
       override.ssh.private_key_path = $LOCAL_SSH_KEY
 
-      google.zone_config "us-central1-c" do |dockerhub_zone|
-        dockerhub_zone.name = "dockerhub"
-        dockerhub_zone.image = "centos-7-v20180611"
-        dockerhub_zone.machine_type = "n1-standard-1"
-        dockerhub_zone.zone = "us-central1-c"
-        dockerhub_zone.metadata = {"zone" => "US Central 1c"}
+      google.zone_config "us-central1-c" do |puppetmaster_zone|
+        puppetmaster_zone.name = "puppetmaster"
+        puppetmaster_zone.image = "centos-7-v20180611"
+        puppetmaster_zone.machine_type = "n1-standard-1"
+        puppetmaster_zone.zone = "us-central1-c"
+        puppetmaster_zone.metadata = {"zone" => "US Central 1c"}
       end
     end
   end

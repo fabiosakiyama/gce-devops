@@ -1,0 +1,19 @@
+- name: CentOS Puppet package
+  yum:
+    name: https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+
+- name: Install puppet-agent
+  become: yes
+  yum:
+    name: puppet-agent
+
+- name: Start puppet
+  become: yes
+  shell: /opt/puppetlabs/bin/puppet resource service puppet ensure=running enable=true
+
+- name: Copy puppet.conf
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/puppet.conf"
+    dest: /etc/puppetlabs/puppet/puppet.conf
+

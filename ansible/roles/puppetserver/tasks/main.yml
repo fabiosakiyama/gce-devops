@@ -1,0 +1,29 @@
+- name: CentOS Puppet package
+  yum:
+    name: https://yum.puppet.com/puppet5/puppet5-release-el-7.noarch.rpm
+
+- name: Install puppetserver, pdk
+  become: yes
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - puppetserver
+      - pdk
+
+- name: Start and enable puppetserver
+  become: yes
+  shell: systemctl start puppetserver && systemctl enable puppetserver 
+
+- name: Create conf module
+  become: yes
+  command: /opt/puppetlabs/pdk/bin/pdk new module conf --skip-interview
+  args:
+    chdir: /etc/puppetlabs/code/environments/production/modules/
+    creates: /etc/puppetlabs/code/environments/production/modules/conf/
+
+- name: Copy puppet.conf file from the local/ansible machine to the remote/puppetserver machine
+  become: yes
+  copy:
+    src: "{{ role_path }}/files/puppet.conf"
+    dest: /etc/puppetlabs/code/environments/production/modules/conf/files/puppet.conf

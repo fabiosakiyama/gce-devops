@@ -1,2 +1,4 @@
 # GCE Project Key
 GCE-DEVOPS-6c2a20b6f0cd.json
+*.retry
+.vagrant*
