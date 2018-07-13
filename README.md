@@ -28,4 +28,16 @@ Test the default Vagrantfile described on the link and run "vagrant up --provisi
 # Starting the VMs
 Check the Vagrantfile and configure with your credentials, then use vagrant up to start them.
 
-# TBDone
+## Ansible
+# Installing ansible
+EzPz, just run sudo yum install ansible
+
+# Configuring ansible hosts
+Configure your ansible hosts just like this repo example, except the addresses.
+
+# Running the playbooks
+Run the playbooks (inside, starting with:
+- puppetserver.yaml
+- puppetagent.yaml
+- jenkins.yaml
+
